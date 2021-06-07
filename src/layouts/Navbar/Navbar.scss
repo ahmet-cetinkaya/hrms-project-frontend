@@ -1,0 +1,15 @@
+@import '../../App.scss';
+
+nav {
+  .nav-link.active {
+    span {
+      padding-bottom: 0.3rem;
+      border-bottom: $navbar-light-active-color solid 0.1rem;
+      border-radius: 0.1rem;
+    }
+  }
+}
+
+nav + div {
+  padding-top: 6rem;
+}

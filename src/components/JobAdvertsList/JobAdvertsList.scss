@@ -1,0 +1,10 @@
+@import '../../App.scss';
+
+.job-item {
+  @extend .border-dark;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    @extend .border-primary;
+  }
+}
