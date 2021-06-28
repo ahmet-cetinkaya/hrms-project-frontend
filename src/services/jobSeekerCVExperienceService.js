@@ -1,10 +1,16 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default class JobSeekerCVExperienceService {
   controllerUrl = `${process.env.REACT_APP_API_URL}/jobseekers/cvs/experiences`;
 
-  add({ jobPosition: { jobPositionId }, jobSeekerCV: { jobSeekerCVId }, workplaceName, startDate, quitDate }) {
-    return axios.post(`${this.controllerUrl}/add`, {
+  add({
+    jobPosition: { jobPositionId },
+    jobSeekerCV: { jobSeekerCVId },
+    workplaceName,
+    startDate,
+    quitDate,
+  }) {
+    return axios.post(this.controllerUrl, {
       jobPosition: { id: jobPositionId },
       jobSeekerCV: { id: jobSeekerCVId },
       workplaceName,
@@ -14,25 +20,36 @@ export default class JobSeekerCVExperienceService {
   }
 
   delete(id) {
-    return axios.delete(`${this.controllerUrl}/delete`, {
+    return axios.delete(this.controllerUrl, {
       id,
     });
   }
 
   getAll() {
-    return axios.get(`${this.controllerUrl}/getall`);
+    return axios.get(this.controllerUrl);
   }
 
   getAllByJobSeekerCV_Id(jobSeekerCVId) {
-    return axios.get(`${this.controllerUrl}/getall/byjobseekercvid`, { params: { jobSeekerCVId } });
+    return axios.get(`${this.controllerUrl}/byjobseekercvid`, {
+      params: { jobSeekerCVId },
+    });
   }
 
   getAllByJobSeekerCV_IdOrderByQuitDate(direction, jobSeekerCVId) {
-    return axios.get(`${this.controllerUrl}/getall/byjobseekercvidorderbyquitdate`, { params: { direction, jobSeekerCVId } });
+    return axios.get(`${this.controllerUrl}/byjobseekercvidorderbyquitdate`, {
+      params: { direction, jobSeekerCVId },
+    });
   }
 
-  update({ id, jobPosition: { jobPositionId }, jobSeekerCV: { jobSeekerCVId }, workplaceName, startDate, quitDate }) {
-    return axios.post(`${this.controllerUrl}/update`, {
+  update({
+    id,
+    jobPosition: { jobPositionId },
+    jobSeekerCV: { jobSeekerCVId },
+    workplaceName,
+    startDate,
+    quitDate,
+  }) {
+    return axios.put(this.controllerUrl, {
       id,
       jobPosition: { id: jobPositionId },
       jobSeekerCV: { id: jobSeekerCVId },
