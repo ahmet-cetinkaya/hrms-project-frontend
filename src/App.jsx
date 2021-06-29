@@ -6,6 +6,7 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 import Footer from "./layouts/Footer/Footer";
 import Home from "./pages/Home/Home";
+import JobAdvertsAdd from "./pages/JobAdverts/Add/JobAdvertsAdd";
 import Navbar from "./layouts/Navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 
@@ -17,6 +18,7 @@ function App() {
         <main className='flex-auto'>
           <Switch>
             <Route exact path='/' component={Home} />
+            <Route exact path='/jobadverts/add' component={JobAdvertsAdd} />
           </Switch>
         </main>
         <Footer />
