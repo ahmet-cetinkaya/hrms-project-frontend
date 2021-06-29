@@ -1,10 +1,16 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default class JobSeekerCVEducationService {
   controllerUrl = `${process.env.REACT_APP_API_URL}/jobseekers/cvs/educations`;
 
-  add({ departmentName, graduationDate, jobSeekerCV: { jobSeekerCVId }, schoolName, startDate }) {
-    return axios.post(`${this.controllerUrl}/add`, {
+  add({
+    departmentName,
+    graduationDate,
+    jobSeekerCV: { jobSeekerCVId },
+    schoolName,
+    startDate,
+  }) {
+    return axios.post(this.controllerUrl, {
       departmentName,
       graduationDate,
       jobSeekerCV: { id: jobSeekerCVId },
@@ -14,25 +20,37 @@ export default class JobSeekerCVEducationService {
   }
 
   delete(id) {
-    return axios.delete(`${this.controllerUrl}/delete`, {
+    return axios.delete(this.controllerUrl, {
       id,
     });
   }
 
   getAll() {
-    return axios.get(`${this.controllerUrl}/getall`);
+    return axios.get(this.controllerUrl);
   }
 
   getAllByJobSeekerCV_Id(jobSeekerCVId) {
-    return axios.get(`${this.controllerUrl}/getall/byjobseekercvid`, { params: { jobSeekerCVId } });
+    return axios.get(`${this.controllerUrl}/byjobseekercvid`, {
+      params: { jobSeekerCVId },
+    });
   }
 
   getAllByJobSeekerCV_IdOrderByGraduationDate(direction, jobSeekerCVId) {
-    return axios.get(`${this.controllerUrl}/getall/byjobseekercvidorderbygraduationdate`, { params: { direction, jobSeekerCVId } });
+    return axios.get(
+      `${this.controllerUrl}/byjobseekercvidorderbygraduationdate`,
+      { params: { direction, jobSeekerCVId } }
+    );
   }
 
-  update({ id, departmentName, graduationDate, jobSeekerCV: { jobSeekerCVId }, schoolName, startDate }) {
-    return axios.post(`${this.controllerUrl}/update`, {
+  update({
+    id,
+    departmentName,
+    graduationDate,
+    jobSeekerCV: { jobSeekerCVId },
+    schoolName,
+    startDate,
+  }) {
+    return axios.put(this.controllerUrl, {
       id,
       departmentName,
       graduationDate,
