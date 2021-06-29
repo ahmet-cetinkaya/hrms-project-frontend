@@ -1,0 +1,11 @@
+@import "../../App.scss";
+
+.select-input-invalid-feedback {
+  @extend .rounded, .border-danger, .border-1;
+  border-style: solid;
+  position: absolute;
+  left: -1px;
+  top: 0px;
+  height: 102%;
+  width: 100.3%;
+}
