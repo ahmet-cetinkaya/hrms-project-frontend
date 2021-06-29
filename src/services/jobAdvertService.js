@@ -5,29 +5,45 @@ export default class JobAdvertService {
 
   add({
     applicationDeadline,
-    city: { cityId },
+    city,
     description,
-    employer: { employerId },
-    jobPosition: { jobPositionId },
+    employer,
+    jobPosition,
+    workingTime,
+    workingType,
     maxSalary,
     minSalary,
     numberOfOpenPositions,
   }) {
-    return axios.post(`${this.controllerUrl}`, {
+    console.log({
       applicationDeadline,
-      city: { id: cityId },
+      city,
       description,
-      employer: { id: employerId },
-      jobPosition: { id: jobPositionId },
+      employer,
+      jobPosition,
       maxSalary,
       minSalary,
       numberOfOpenPositions,
+      workingTime,
+      workingType,
+    });
+    return axios.post(`${this.controllerUrl}`, {
+      applicationDeadline,
+      city,
+      description,
+      employer,
+      jobPosition,
+      maxSalary,
+      minSalary,
+      numberOfOpenPositions,
+      workingTime,
+      workingType,
     });
   }
 
-  disableById(id) {
-    return axios.put(`${this.controllerUrl}/disablebyid`, {
-      id,
+  verifyById(id) {
+    return axios.put(`${this.controllerUrl}/verify/byid`, null, {
+      params: { id },
     });
   }
 
