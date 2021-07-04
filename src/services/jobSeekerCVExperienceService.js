@@ -3,16 +3,10 @@ import axios from "axios";
 export default class JobSeekerCVExperienceService {
   controllerUrl = `${process.env.REACT_APP_API_URL}/jobseekers/cvs/experiences`;
 
-  add({
-    jobPosition: { jobPositionId },
-    jobSeekerCV: { jobSeekerCVId },
-    workplaceName,
-    startDate,
-    quitDate,
-  }) {
+  add({ jobPosition, jobSeekerCV, workplaceName, startDate, quitDate }) {
     return axios.post(this.controllerUrl, {
-      jobPosition: { id: jobPositionId },
-      jobSeekerCV: { id: jobSeekerCVId },
+      jobPosition,
+      jobSeekerCV,
       workplaceName,
       startDate,
       quitDate,
@@ -21,7 +15,7 @@ export default class JobSeekerCVExperienceService {
 
   delete(id) {
     return axios.delete(this.controllerUrl, {
-      id,
+      params: { id },
     });
   }
 

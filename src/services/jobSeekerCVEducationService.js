@@ -3,17 +3,11 @@ import axios from "axios";
 export default class JobSeekerCVEducationService {
   controllerUrl = `${process.env.REACT_APP_API_URL}/jobseekers/cvs/educations`;
 
-  add({
-    departmentName,
-    graduationDate,
-    jobSeekerCV: { jobSeekerCVId },
-    schoolName,
-    startDate,
-  }) {
+  add({ departmentName, graduationDate, jobSeekerCV, schoolName, startDate }) {
     return axios.post(this.controllerUrl, {
       departmentName,
       graduationDate,
-      jobSeekerCV: { id: jobSeekerCVId },
+      jobSeekerCV,
       schoolName,
       startDate,
     });
@@ -21,7 +15,7 @@ export default class JobSeekerCVEducationService {
 
   delete(id) {
     return axios.delete(this.controllerUrl, {
-      id,
+      params: { id },
     });
   }
 

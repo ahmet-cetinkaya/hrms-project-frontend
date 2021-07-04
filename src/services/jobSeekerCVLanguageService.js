@@ -3,16 +3,16 @@ import axios from "axios";
 export default class JobSeekerCVLanguageService {
   controllerUrl = `${process.env.REACT_APP_API_URL}/jobseekers/cvs/languages`;
 
-  add({ jobSeekerCV: { jobSeekerCVId }, language: { languageId }, level }) {
+  add({ jobSeekerCV, language, level }) {
     return axios.post(this.controllerUrl, {
-      jobSeekerCV: { id: jobSeekerCVId },
-      language: { id: languageId },
+      jobSeekerCV,
+      language,
       level,
     });
   }
 
   delete(id) {
-    return axios.delete(this.controllerUrl, { id });
+    return axios.delete(this.controllerUrl, { params: { id } });
   }
 
   getById(id) {

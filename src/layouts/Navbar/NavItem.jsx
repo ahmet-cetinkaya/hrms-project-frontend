@@ -1,10 +1,10 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+import React from "react";
 
 function NavItem({ name, iconClassName, linkTo }) {
   return (
     <li className='nav-item'>
-      <NavLink to={linkTo} className='nav-link' activeClassName='active'>
+      <NavLink exact to={linkTo} className='nav-link' activeClassName='active'>
         <span>
           {iconClassName && <i className={`me-2 ${iconClassName}`} />}
           {name}

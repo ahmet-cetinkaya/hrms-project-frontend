@@ -7,15 +7,7 @@ export default class JobSeekerService {
     return axios.get(this.controllerUrl);
   }
 
-  register({
-    birthDate,
-    confirmPassword,
-    email,
-    firstName,
-    identityNumber,
-    lastName,
-    password,
-  }) {
+  register({ birthDate, confirmPassword, email, firstName, identityNumber, lastName, password }) {
     return axios.post(`${this.controllerUrl}/register`, {
       birthDate,
       confirmPassword,

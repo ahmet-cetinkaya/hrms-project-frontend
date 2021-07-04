@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import NavItem from './NavItem';
+import "./Navbar.scss";
 
-import './Navbar.scss';
+import { Link } from "react-router-dom";
+import NavItem from "./NavItem";
+import React from "react";
 
 export default function Navbar() {
   return (
@@ -25,9 +25,9 @@ export default function Navbar() {
         <div className='collapse navbar-collapse' id='navbarmenu'>
           <ul className='navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-center'>
             <NavItem linkTo='' name='Home' iconClassName='bi bi-house' />
-            <NavItem linkTo='/jobs' name='Find a Job' iconClassName='bi bi-search' />
+            <NavItem linkTo='/jobadvert' name='Find a Job' iconClassName='bi bi-search' />
             <NavItem linkTo='/about' name='About Us' iconClassName='bi bi-info-circle' />
-            <NavItem linkTo='/jobs/add' name='Post a Job' iconClassName='bi bi-card-text' />
+            <NavItem linkTo='/jobadvert/add' name='Post a Job' iconClassName='bi bi-card-text' />
           </ul>
         </div>
         <div>

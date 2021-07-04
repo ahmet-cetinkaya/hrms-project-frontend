@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default class JobSeekerCV {
+export default class JobSeekerCVService {
   controllerUrl = `${process.env.REACT_APP_API_URL}/jobseekers/cvs`;
 
   add({ coverLetter, jobSeeker }) {

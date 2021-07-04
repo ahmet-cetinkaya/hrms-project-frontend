@@ -15,18 +15,6 @@ export default class JobAdvertService {
     minSalary,
     numberOfOpenPositions,
   }) {
-    console.log({
-      applicationDeadline,
-      city,
-      description,
-      employer,
-      jobPosition,
-      maxSalary,
-      minSalary,
-      numberOfOpenPositions,
-      workingTime,
-      workingType,
-    });
     return axios.post(`${this.controllerUrl}`, {
       applicationDeadline,
       city,

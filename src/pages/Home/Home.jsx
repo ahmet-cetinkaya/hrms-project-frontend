@@ -1,10 +1,10 @@
-import React from 'react';
-
-import Overlay from './Overlay';
-import Steps from './Steps';
-import JobAdvertsList from '../../components/JobAdvertsList/JobAdvertsList';
-import CandidatesList from '../../components/CandidatesList/CandidatesList';
-import CreateAccountBanner from './CreateAccountBanner';
+import CandidatesList from "../../components/CandidatesList/CandidatesList";
+import CreateAccountBanner from "./CreateAccountBanner";
+import JobAdvertsList from "../../components/JobAdvertsList/JobAdvertsList";
+import { Link } from "react-router-dom";
+import Overlay from "./Overlay";
+import React from "react";
+import Steps from "./Steps";
 
 export default function Home() {
   return (

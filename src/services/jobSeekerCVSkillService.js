@@ -8,7 +8,7 @@ export default class JobSeekerCVSkillService {
   }
 
   delete(id) {
-    return axios.delete(this.controllerUrl, { id });
+    return axios.delete(this.controllerUrl, { params: { id } });
   }
 
   getById(id) {

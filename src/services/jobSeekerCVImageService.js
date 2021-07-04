@@ -13,7 +13,7 @@ export default class JobSeekerCVImageService {
   }
 
   delete(id) {
-    return axios.delete(this.controllerUrl, { id });
+    return axios.delete(this.controllerUrl, { params: { id } });
   }
 
   getAll() {

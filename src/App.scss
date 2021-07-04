@@ -22,14 +22,16 @@ body,
 
 main {
   flex: auto;
+
+  > * {
+    flex: auto;
+  }
 }
 
 body {
   @extend .d-flex, .flex-column;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Poppins", "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: "Poppins", "Segoe UI", "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100%;
@@ -76,8 +78,7 @@ $light: $color-3;
   border-bottom-left-radius: 0 !important;
 }
 
-.input-group:not(.has-validation)
-  > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),
+.input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),
 .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n + 3) {
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
