@@ -1,47 +1,47 @@
-import "./JobAdcertsVerify.scss";
+import "./JobAdvertsVerify.scss";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import DisplayHeader from "../../../components/DisplayHeader/DisplayHeader";
 import JobAdvertService from "../../../services/jobAdvertService";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
+import lodash from "lodash";
 import { toast } from "react-toastify";
 
 export default function JobAdvertsVerify() {
   const [jobAdverts, setJobAdverts] = useState(null),
     [jobAdvertDetail, setJobAdvertDetail] = useState(null);
+  const showJobAdvertDetail = (jobAdvert) => setJobAdvertDetail(jobAdvert);
 
-  const getAll = async () => {
-    const result = await new JobAdvertService().getAllByIsActive(false);
-    setJobAdverts(result.data.data);
-  };
-
-  useEffect(() => {
-    getAll();
-  }, []);
-
-  const showJobAdvertDetail = (jobAdvert) => setJobAdvertDetail(jobAdvert),
+  const jobAdvertService = useMemo(() => new JobAdvertService(), []),
+    getAllByIsActive = useCallback(
+      async (page, size = 10) => {
+        const result = await jobAdvertService.getAllByIsActive(false, page, size);
+        if (result.data.success) setJobAdverts(result.data.data);
+      },
+      [jobAdvertService]
+    ),
     verifyJobAdvert = async (id) => {
-      const result = await new JobAdvertService().verifyById(id);
-
+      const result = await jobAdvertService.verifyById(id);
       if (result.data.success) {
-        setJobAdverts([
-          ...jobAdverts.filter((j) => j.id !== id),
-          {
-            ...jobAdverts.find((jobAdvert) => jobAdvert.id === id),
-            active: true,
-          },
-        ]);
+        const isLastElement = jobAdverts.numberOfElements === 1,
+          page = jobAdverts.first ? 0 : isLastElement ? jobAdverts.number - 1 : jobAdverts.number;
+        getAllByIsActive(page);
         toast.success(result.data.message);
       }
     };
 
+  useEffect(() => {
+    getAllByIsActive();
+  }, [getAllByIsActive]);
+
   return (
-    <div className='container min-vh-75'>
+    <div className='container'>
       <DisplayHeader firstText='Verify' secondText='Job Adverts' size='5' />
       <div className='p-4 rounded shadow h-100 overflow-auto'>
-        {jobAdverts === null && <LoadingSpinner />}
-        {jobAdverts && jobAdverts.length > 0 ? (
+        {jobAdverts === null ? (
+          <LoadingSpinner />
+        ) : jobAdverts && jobAdverts.content.length > 0 ? (
           <>
             <table className='table table-striped'>
               <thead>
@@ -61,11 +61,8 @@ export default function JobAdvertsVerify() {
                 </tr>
               </thead>
               <tbody>
-                {jobAdverts.map((jobAdvert) => (
-                  <tr
-                    key={jobAdvert.id}
-                    className={jobAdvert.active ? "table-success" : ""}
-                  >
+                {jobAdverts.content.map((jobAdvert) => (
+                  <tr key={jobAdvert.id} className={jobAdvert.active ? "table-success" : ""}>
                     <th scope='row'>{jobAdvert.id}</th>
                     <td>{jobAdvert.employer.companyName}</td>
                     <td>{jobAdvert.jobPosition.title}</td>
@@ -77,13 +74,8 @@ export default function JobAdvertsVerify() {
                     </td>
                     <td>{`${jobAdvert.minSalary}-${jobAdvert.maxSalary}`}</td>
                     <td>{jobAdvert.city.name}</td>
+                    <td>{new Date(...jobAdvert.applicationDeadline).toLocaleString()}</td>
                     <td>
-                      {new Date(
-                        ...jobAdvert.applicationDeadline
-                      ).toLocaleString()}
-                    </td>
-                    <td>
-                      {/* Button trigger modal */}
                       <button
                         type='button'
                         className='btn btn-primary'
@@ -108,6 +100,46 @@ export default function JobAdvertsVerify() {
                 ))}
               </tbody>
             </table>
+            {/* Pagination */}
+            <nav className='w-100'>
+              <ul class='pagination justify-content-center'>
+                <li class={`page-item ${jobAdverts.first ? "disabled" : ""}`}>
+                  <button
+                    class='page-link'
+                    onClick={() => getAllByIsActive(jobAdverts.number - 1, jobAdverts.size)}
+                  >
+                    Previous
+                  </button>
+                </li>
+                {lodash.times(jobAdverts.totalPages, (i) => (
+                  <li class={`page-item ${jobAdverts.number === i ? "active" : ""}`}>
+                    <button class='page-link' onClick={() => getAllByIsActive(i, jobAdverts.size)}>
+                      {i + 1}
+                    </button>
+                  </li>
+                ))}
+                <li class={`page-item ${jobAdverts.last ? "disabled" : ""}`}>
+                  <button
+                    class='page-link'
+                    onClick={() => getAllByIsActive(jobAdverts.number + 1, jobAdverts.size)}
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+              <div className='text-center'>
+                <select
+                  id='pageSizeSelect'
+                  className='bg-body border-light'
+                  onChange={(e) => getAllByIsActive(0, e.currentTarget.value)}
+                >
+                  {[10, 20, 50, 100].map((size) => (
+                    <option value={size}>{size}</option>
+                  ))}
+                </select>
+              </div>
+            </nav>
+            {/* Job Advert Detail Modal */}
             <div
               className='modal fade'
               id='jobAdvert-detail'
@@ -153,20 +185,13 @@ export default function JobAdvertsVerify() {
                         </div>
                         <div className='row'>
                           <div className='col-md'>
-                            <span className='badge bg-secondary fw-bold me-2 mt-2'>
-                              Phone:
-                            </span>
-                            <a
-                              href={`tel:${jobAdvertDetail.employer.phone}`}
-                              className='link-dark'
-                            >
+                            <span className='badge bg-secondary fw-bold me-2 mt-2'>Phone:</span>
+                            <a href={`tel:${jobAdvertDetail.employer.phone}`} className='link-dark'>
                               {jobAdvertDetail.employer.phone}
                             </a>
                           </div>
                           <div className='col-md'>
-                            <span className='badge bg-secondary fw-bold me-2 mt-2'>
-                              Website :
-                            </span>
+                            <span className='badge bg-secondary fw-bold me-2 mt-2'>Website :</span>
                             <a
                               href={`https://${jobAdvertDetail.employer.website}`}
                               className='link-dark'
@@ -183,15 +208,11 @@ export default function JobAdvertsVerify() {
                         <h6>Job Position</h6>
                         <div className='row'>
                           <div className='col-md'>
-                            <span className='badge bg-secondary fw-bold me-2 mt-2'>
-                              Title:
-                            </span>
+                            <span className='badge bg-secondary fw-bold me-2 mt-2'>Title:</span>
                             {jobAdvertDetail.jobPosition.title}
                           </div>
                           <div className='col-md'>
-                            <span className='badge bg-secondary fw-bold me-2 mt-2'>
-                              Active:
-                            </span>
+                            <span className='badge bg-secondary fw-bold me-2 mt-2'>Active:</span>
                             {jobAdvertDetail.jobPosition.active.toString()}
                           </div>
                         </div>
@@ -220,9 +241,7 @@ export default function JobAdvertsVerify() {
                             {jobAdvertDetail.numberOfOpenPositions}
                           </div>
                           <div className='col-md'>
-                            <span className='badge bg-secondary fw-bold me-2 mt-2'>
-                              City:
-                            </span>
+                            <span className='badge bg-secondary fw-bold me-2 mt-2'>City:</span>
                             {jobAdvertDetail.city.name}
                           </div>
                         </div>
@@ -240,9 +259,7 @@ export default function JobAdvertsVerify() {
                             {jobAdvertDetail.maxSalary}
                           </div>
                         </div>
-                        <div className='badge bg-secondary fw-bold me-2 my-2'>
-                          Description:
-                        </div>
+                        <div className='badge bg-secondary fw-bold me-2 my-2'>Description:</div>
                         <textarea disabled className='d-block w-100 rounded'>
                           {jobAdvertDetail.description}
                         </textarea>
@@ -250,11 +267,7 @@ export default function JobAdvertsVerify() {
                     </div>
                   )}
                   <div className='modal-footer'>
-                    <button
-                      type='button'
-                      className='btn btn-secondary'
-                      data-bs-dismiss='modal'
-                    >
+                    <button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>
                       Close
                     </button>
                     <button
@@ -271,13 +284,8 @@ export default function JobAdvertsVerify() {
           </>
         ) : (
           <div className='text-center'>
-            <i
-              className='bi bi-ui-checks text-success'
-              style={{ fontSize: "10rem" }}
-            />
-            <p className='text-center display-6'>
-              There is no expected verify.
-            </p>
+            <i className='bi bi-ui-checks text-success' style={{ fontSize: "10rem" }} />
+            <p className='text-center display-6'>There is no expected verify.</p>
           </div>
         )}
       </div>
