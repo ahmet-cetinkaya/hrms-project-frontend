@@ -18,4 +18,26 @@ export default class JobSeekerService {
       password,
     });
   }
+
+  getByJobSeekerIdAndJobAdvertId(jobSeekerId, jobAdvertId) {
+    return axios.get(`${this.controllerUrl}/favorite/jobadvert/byjobseekeridandjobadvertid`, {
+      params: {
+        jobSeekerId,
+        jobAdvertId,
+      },
+    });
+  }
+
+  favoriteJobAdvert({ jobSeeker, jobAdvert }) {
+    return axios.post(`${this.controllerUrl}/favorite/jobadvert`, {
+      jobSeeker,
+      jobAdvert,
+    });
+  }
+
+  undoFavoriteJobAdvert(jobSeekersFavoriteJobAdvertId) {
+    return axios.delete(`${this.controllerUrl}/favorite/jobadvert`, {
+      params: { jobSeekersFavoriteJobAdvertId },
+    });
+  }
 }

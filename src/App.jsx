@@ -4,14 +4,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
-import CompanyStaffUpdate from "./pages/CompanyStaff/Update/CompanyStaffUpdate";
-import EmployerUpdate from "./pages/Employers/Update/EmployerUpdate";
-import EmployerUpdateVerify from "./pages/Employers/Update/Verify/EmployerUpdateVerify";
 import Footer from "./layouts/Footer/Footer";
 import Home from "./pages/Home/Home";
+import JobAdverts from "./pages/JobAdverts/JobAdverts";
 import JobAdvertsAdd from "./pages/JobAdverts/Add/JobAdvertsAdd";
 import JobAdvertsVerify from "./pages/JobAdverts/Verify/JobAdvertsVerify";
-import JobSeekerCVUpdate from "./pages/JobSeekers/CV/Update/JobSeekerCVUpdate";
 import Navbar from "./layouts/Navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 
@@ -20,10 +17,11 @@ function App() {
     <div id='App' className='d-flex flex-column'>
       <Router>
         <Navbar />
-        <main>
+        <main className='flex-auto'>
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/companystaff/update' component={CompanyStaffUpdate} />
+            <Route exact path='/jobadvert' component={JobAdverts} />
             <Route exact path='/jobadvert/add' component={JobAdvertsAdd} />
             <Route exact path='/jobadvert/add/verify' component={JobAdvertsVerify} />
             <Route exact path='/jobseeker/cv/update' component={JobSeekerCVUpdate} />

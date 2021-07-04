@@ -39,47 +39,70 @@ export default class JobAdvertService {
     return axios.get(`${this.controllerUrl}/getall`);
   }
 
-  getAllByIsActive(isActive = true) {
+  getAllByIsActive(isActive, page, size, sortDirection, sortProperties) {
     return axios.get(`${this.controllerUrl}/byisactive`, {
       params: {
         isActive,
+        page,
+        size,
+        sortDirection,
+        sortProperties,
       },
     });
   }
 
-  getAllByIsActiveForList(isActive = true) {
+  getAllByIsActiveForList(isActive, page, size, sortDirection, sortProperties) {
     return axios.get(`${this.controllerUrl}/forlist/byisactive`, {
       params: {
         isActive,
+        page,
+        size,
+        sortDirection,
+        sortProperties,
       },
     });
   }
 
-  getAllByIsActiveAndEmployer_CompanyNameForList(companyName, isActive = true) {
-    return axios.get(
-      `${this.controllerUrl}/forlist/byisactiveandemployercompanyname`,
-      {
-        params: {
-          companyName,
-          isActive,
-        },
-      }
-    );
+  getAllByIsActiveAndEmployer_CompanyNameForList(
+    companyName,
+    isActive,
+    page,
+    size,
+    sortDirection,
+    sortProperties
+  ) {
+    return axios.get(`${this.controllerUrl}/forlist/byisactiveandemployercompanyname`, {
+      params: {
+        companyName,
+        isActive,
+        page,
+        size,
+        sortDirection,
+        sortProperties,
+      },
+    });
   }
 
-  getAllByIsActiveOrderByCreatedAtByForList(
-    isActive = true,
-    direction = "DESC"
+  getAllByIsActiveAndCityAndWorkingTimeForList(
+    isActive,
+    cityId,
+    workingTimeId,
+    page,
+    size,
+    sortDirection,
+    sortProperties
   ) {
-    return axios.get(
-      `${this.controllerUrl}/forlist/byisactiveorderbycreatedatby`,
-      {
-        params: {
-          direction,
-          isActive,
-        },
-      }
-    );
+    return axios.get(`${this.controllerUrl}/forlist/byisactiveandcityandworkingtime`, {
+      params: {
+        cityId,
+        workingTimeId,
+        isActive,
+        page,
+        size,
+        sortDirection,
+        sortProperties,
+      },
+    });
   }
 
   update({
