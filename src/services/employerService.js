@@ -23,14 +23,19 @@ export default class EmployerService {
     return axios.get(`${this.controllerUrl}/byid`, { params: { id } });
   }
 
-  updateByUser({ id, companyName, website, corporateEmail, phone, password }) {
-    return axios.put(`${this.controllerUrl}/byuser`, {
-      id,
-      companyName,
-      website,
-      corporateEmail,
-      phone,
-      password,
+  updateByUser({
+    employerId,
+    companyName,
+    companyImage,
+    website,
+    corporateEmail,
+    phone,
+    password,
+  }) {
+    const formData = new FormData();
+    formData.append("companyImage", companyImage);
+    return axios.put(`${this.controllerUrl}/byuser`, formData, {
+      params: { employerId, companyName, website, corporateEmail, phone, password },
     });
   }
 
