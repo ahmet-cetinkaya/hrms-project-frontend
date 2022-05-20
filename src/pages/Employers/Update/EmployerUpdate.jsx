@@ -1,3 +1,5 @@
+import "./EmployerUpdate.scss";
+
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
@@ -5,6 +7,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import DisplayHeader from "../../../components/DisplayHeader/DisplayHeader";
 import EmployerService from "../../../services/employerService";
+import FormFileInput from "../../../components/FormFileInput/FormFileInput";
 import FormInput from "../../../components/FormInput/FormInput";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import { toast } from "react-toastify";
@@ -27,15 +30,12 @@ export default function EmployerUpdate() {
     }, [employerService]),
     updateByUser = async (values) => {
       const updatedEmployer = {
-          id: employer.id,
+          employerId: employer.id,
           ...values,
         },
         result = await employerService.updateByUser(updatedEmployer);
 
-      if (result.data.success) {
-        toast.success(result.data.message);
-        setEmployer(updatedEmployer);
-      }
+      if (result.data.success) toast.success(result.data.message);
     };
 
   const showPendingUpdateApproval = (employerUpdate) => {
@@ -75,7 +75,45 @@ export default function EmployerUpdate() {
           onSubmit={(values) => updateByUser(values)}
         >
           <Form>
-            <FormInput name='companyName' />
+            <div className='row'>
+              <div className='col-sm'>
+                <FormInput name='companyName' />
+              </div>
+              <div className='col-sm'>
+                <div className='row'>
+                  <div className='col'>
+                    <FormFileInput
+                      name='companyImage'
+                      accept='image/png, image/jpeg'
+                      render={
+                        <button
+                          type='submit'
+                          className='input-group-text btn btn-primary'
+                          htmlFor={`image-file-input`}
+                        >
+                          Upload
+                        </button>
+                      }
+                    />
+                  </div>
+                  <div className='col-3 d-flex justify-content-center align-items-center'>
+                    <figure className='figure position-relative me-3 mb-3'>
+                      {employer.companyImageUrl ? (
+                        <img
+                          src={employer.companyImageUrl}
+                          className='figure-img img-fluid rounded img-thumbnail rounded shadow'
+                          alt={`${employer.companyName} logo`}
+                          width='70'
+                          height='70'
+                        />
+                      ) : (
+                        <i className='bi bi-briefcase fs-1 me-3 text-muted' />
+                      )}
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
             <FormInput name='website' />
             <FormInput name='corporateEmail' />
             <FormInput name='phone' />

@@ -4,6 +4,10 @@ import JobSeekerService from "../../services/jobSeekerService";
 import { Link } from "react-router-dom";
 
 export default function JobAdvertListItem({ jobAdvert }) {
+  console.log(
+    "🚀 ~ file: JobAdvertsListItem.jsx ~ line 7 ~ JobAdvertListItem ~ jobAdvert",
+    jobAdvert
+  );
   const [jobSeekersFavoriteJobAdvert, setJobSeekersFavoriteJobAdvert] = useState(null);
 
   const jobSeekerService = useMemo(() => new JobSeekerService(), []),
@@ -29,7 +33,17 @@ export default function JobAdvertListItem({ jobAdvert }) {
       <div className='job-item p-4 border rounded-2  shadow'>
         <div className='d-flex justify-content-between'>
           <div className='d-flex align-items-center'>
-            <i className='bi bi-briefcase fs-1 me-3 text-muted' />
+            {jobAdvert && jobAdvert.companyImageUrl ? (
+              <img
+                src={jobAdvert.companyImageUrl}
+                alt={`${jobAdvert.companyName} logo`}
+                className='me-3'
+                width='60'
+                height='60'
+              />
+            ) : (
+              <i className='bi bi-briefcase fs-1 me-3 text-muted' />
+            )}
             <div>
               <div className='fw-bold fs-5'>{jobAdvert.title}</div>
               <div className='text-primary fw-bold me-1'>

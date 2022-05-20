@@ -28,6 +28,21 @@ export default function EmployerUpdateVerify() {
         ]);
         toast.success(result.data.message);
       }
+    },
+    denyEmployerUpdate = async (employerUpdateId) => {
+      const result = await employerService.denyUpdate(employerUpdateId);
+
+      if (result.data.success) {
+        setEmployerUpdates([
+          ...employerUpdates.filter((e) => e.id !== employerUpdateId),
+          {
+            ...employerUpdates.find((e) => e.id === employerUpdateId),
+            active: true,
+            deleted: true,
+          },
+        ]);
+        toast.success(result.data.message);
+      }
     };
 
   const showEmployerDetail = (employerUpdate) => setEmployerDetail(employerUpdate);
@@ -38,7 +53,7 @@ export default function EmployerUpdateVerify() {
 
   return (
     <div className='container'>
-      <DisplayHeader firstText='Verify' secondText='Job Adverts' size='5' />
+      <DisplayHeader firstText='Verify' secondText='Employer Update' size='5' />
       <div className='p-4 rounded shadow h-100 overflow-auto'>
         {employerUpdates === null ? (
           <LoadingSpinner />
@@ -53,7 +68,6 @@ export default function EmployerUpdateVerify() {
                   <th scope='col'>Corporate Email</th>
                   <th scope='col'>Phone</th>
                   <th scope='col'>updatedAt</th>
-                  <th scope='col'></th>
                   <th scope='col'></th>
                 </tr>
               </thead>
@@ -84,15 +98,22 @@ export default function EmployerUpdateVerify() {
                       >
                         <i className='bi bi-zoom-in' />
                       </button>
-                    </td>
-                    <td>
                       {!employerUpdate.active && (
-                        <button
-                          onClick={() => verifyEmployerUpdate(employerUpdate.id)}
-                          className='btn btn-success text-white'
-                        >
-                          Verify
-                        </button>
+                        <>
+                          <button
+                            onClick={() => verifyEmployerUpdate(employerUpdate.id)}
+                            className='btn btn-success text-white ms-2'
+                          >
+                            Verify
+                          </button>
+                          <button
+                            type='button'
+                            className='btn btn-danger text-white ms-2'
+                            onClick={() => denyEmployerUpdate(employerUpdate.id)}
+                          >
+                            Deny
+                          </button>
+                        </>
                       )}
                     </td>
                   </tr>
@@ -189,6 +210,13 @@ export default function EmployerUpdateVerify() {
                       onClick={() => verifyEmployerUpdate(employerDetail.id)}
                     >
                       Verify
+                    </button>
+                    <button
+                      type='button'
+                      className='btn btn-danger text-white'
+                      onClick={() => denyEmployerUpdate(employerDetail.id)}
+                    >
+                      Deny
                     </button>
                   </div>
                 </div>
