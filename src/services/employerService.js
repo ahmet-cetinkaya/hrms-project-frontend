@@ -45,15 +45,13 @@ export default class EmployerService {
     });
   }
 
-  register({
-    companyName,
-    confirmPassword,
-    corporateEmail,
-    email,
-    password,
-    phone,
-    website,
-  }) {
+  denyUpdate(employerUpdateId) {
+    return axios.put(`${this.controllerUrl}/deny/update`, null, {
+      params: { employerUpdateId },
+    });
+  }
+
+  register({ companyName, confirmPassword, corporateEmail, email, password, phone, website }) {
     return axios.post(`${this.controllerUrl}/register`, {
       companyName,
       confirmPassword,
