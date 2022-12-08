@@ -1,5 +1,5 @@
 import React from "react";
-import overlayVector from "../../assets/images/overlay-vector.svg";
+import overlayVector from "../../assets/images/soccer.svg";
 
 export default function Overlay() {
   return (
@@ -7,10 +7,10 @@ export default function Overlay() {
       <div className='col-md d-flex justify-content-center align-items-center'>
         <section id='job-advert-search'>
           <h1 className='display-1 fw-bold text-primary'>
-            <span className='text-secondary'>Find</span> Job
-            <span className='text-secondary'>.</span>
+            <span className='text-secondary'>为比赛</span> 下注
+            <span className='text-secondary'>。</span>
           </h1>
-          <h4>Your dream job is waiting for you.</h4>
+          <h4>The World Cup is waiting for you.</h4>
           <form className='p-3 my-5 d-flex justify-align-items-center align-items-centerrounded-2 shadow rounded-2'>
             <div className='input-group'>
               <span className='input-group-text border-0 bg-transparent shadow-none'>
@@ -40,9 +40,9 @@ export default function Overlay() {
       </div>
       <div className='col-md'>
         <img src={overlayVector} alt='hrms project' />
-        <a href='https://www.freepik.com/vectors/business' className='d-none'>
+        {/* <a href='https://www.freepik.com/vectors/business' className='d-none'>
           Business vector created by katemangostar - www.freepik.com
-        </a>
+        </a> */}
       </div>
     </div>
   );

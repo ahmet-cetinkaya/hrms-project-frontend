@@ -1,7 +1,7 @@
 import CandidatesList from "../../components/CandidatesList/CandidatesList";
-import CreateAccountBanner from "./CreateAccountBanner";
+// import CreateAccountBanner from "./CreateAccountBanner";
 import JobAdvertsList from "../../components/JobAdvertsList/JobAdvertsList";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Overlay from "./Overlay";
 import React from "react";
 import Steps from "./Steps";
@@ -13,13 +13,13 @@ export default function Home() {
         <Overlay />
         <Steps />
         <JobAdvertsList size={6} pagination={false} />
-        <div className='text-center mb-5'>
+        {/* <div className='text-center mb-5'>
           <Link to='/jobadvert' className='btn btn-primary rounded shadow'>
             Browse All
           </Link>
-        </div>
+        </div> */}
         <CandidatesList />
-        <CreateAccountBanner />
+        {/* <CreateAccountBanner /> */}
       </div>
     </div>
   );

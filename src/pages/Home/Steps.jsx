@@ -5,34 +5,34 @@ export default function Steps() {
     <div className='row px-5 my-5'>
       <div className='col'>
         <h1 className='fw-bold display-5'>
-          <span className='text-secondary'>Follow</span> <br /> Easy 4 Steps
+          <span className='text-secondary'>遵循</span> <br /> 简单 4 步
         </h1>
         <p className='text-muted mt-4'>
-          Adipisicing velit cupidatat labore nulla minim reprehenderit consequat incididunt pariatur. Adipisicing occaecat aliqua eu commodo sunt excepteur Lorem nostrud nostrud
-          labore amet Lorem exercitation. Duis fugiat pariatur velit labore.
+          使用我们的链上世界杯博彩平台，您可以为自己看好的球队和球员投注。投注和兑现完全由智能合约完成，
+          运行在以太坊测试链上，公开透明。
         </p>
       </div>
       <div className='col text-center'>
         <div className='row'>
           <div className='col-6'>
             <i className='bi bi-person fs-1 text-primary' />
-            <div className='fw-bold'>Create Account</div>
-            <div className='text-muted px-5'>First you have to create an account here.</div>
+            <div className='fw-bold'>链接您的钱包</div>
+            <div className='text-muted px-5'>首先在这里将您的钱包链接到平台.</div>
           </div>
           <div className='col-6 mt-4'>
             <i className='bi bi-file-earmark-person fs-1 text-danger' />
-            <div className='fw-bold'>CV</div>
-            <div className='text-muted px-5'>For a job you have to upload your best CV.</div>
+            <div className='fw-bold'>下注证明</div>
+            <div className='text-muted px-5'>获得NFT作为下注证明.</div>
           </div>
           <div className='col-6'>
             <i className='bi bi-search fs-1 text-success' />
-            <div className='fw-bold'>Search Job</div>
-            <div className='text-muted px-5'>Find your best job using search.</div>
+            <div className='fw-bold'>选择玩法</div>
+            <div className='text-muted px-5'>选择您喜爱的玩法下注.</div>
           </div>
           <div className='col-lg-6 mt-4'>
             <i className='bi bi-check2-circle fs-1 text-secondary' />
-            <div className='fw-bold'>Apply Them</div>
-            <div className='text-muted px-5'>Finally you apply your job and enjoy your work.</div>
+            <div className='fw-bold'>NFT交易</div>
+            <div className='text-muted px-5'>加入我们的二级市场与全球玩家随时交易您的NFT.</div>
           </div>
         </div>
       </div>
